@@ -225,10 +225,10 @@ def Build_Model_RNN_Image(shape,
     x = Input(shape=shape)
 
     # Encodes a row of pixels using TimeDistributed Wrapper.
-    encoded_rows = TimeDistributed(LSTM(node,recurrent_dropout=0.0))(x)
+    encoded_rows = TimeDistributed(LSTM(node))(x)
     node = random.choice(values)
     # Encodes columns of encoded rows.
-    encoded_columns = LSTM(node,recurrent_dropout=0.0)(encoded_rows)
+    encoded_columns = LSTM(node)(encoded_rows)
 
     # Final predictions and model.
     #prediction = Dense(256, activation='relu')(encoded_columns)
@@ -282,9 +282,9 @@ def Build_Model_RNN_Text(word_index, embeddings_index, nclasses,  MAX_SEQUENCE_L
     gru_node = random.choice(values)
     print(gru_node)
     for i in range(0,layer):
-        model.add(GRU(gru_node,return_sequences=True, recurrent_dropout=0.0))
+        model.add(GRU(gru_node,return_sequences=True))
         model.add(Dropout(dropout))
-    model.add(GRU(gru_node, recurrent_dropout=0.0))
+    model.add(GRU(gru_node))
     model.add(Dropout(dropout))
     model.add(Dense(256, activation='relu'))
     model.add(Dense(nclasses, activation='softmax'))
