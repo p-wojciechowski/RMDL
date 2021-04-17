@@ -197,7 +197,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                          save_best_only=True,
                                          mode='max')
             	
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            es = EarlyStopping(monitor='val_accuracy', min_delta=0.003, mode='min', verbose=1, patience=50)
             callbacks_list = [checkpoint, es]
 
             model_DNN, model_tmp = BuildModel.Build_Model_DNN_Text(x_train_tfidf.shape[1],
@@ -272,7 +272,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                          save_best_only=True,
                                          mode='max')
             	
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            es = EarlyStopping(monitor='val_accuracy', min_delta=0.003, mode='min', verbose=1, patience=50)
             callbacks_list = [checkpoint, es]
 
             model_RNN, model_tmp = BuildModel.Build_Model_RNN_Text(word_index,
@@ -352,7 +352,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
             checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True,
                                          mode='max')
             	
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            es = EarlyStopping(monitor='val_accuracy', min_delta=0.003, mode='min', verbose=1, patience=50)
             callbacks_list = [checkpoint, es]
 
             model_history = model_CNN.fit(x_train_embedded, y_train,

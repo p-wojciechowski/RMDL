@@ -24,6 +24,7 @@ from sklearn.metrics import f1_score
 from RMDL import BuildModel as BuildModel
 from RMDL import Global as G
 from keras.callbacks import ModelCheckpoint
+from keras.callbacks import EarlyStopping
 np.random.seed(7)
 
 
@@ -149,7 +150,7 @@ def Image_Classification(x_train, y_train, x_test, y_test, shape, batch_size=128
                                          save_best_only=True,
                                          mode='max')
             	
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            es = EarlyStopping(monitor='val_accuracy', min_delta=0.003, mode='min', verbose=1, patience=50)
             callbacks_list = [checkpoint, es]
 
             history = model_DNN.fit(x_train, y_train,
@@ -204,7 +205,7 @@ def Image_Classification(x_train, y_train, x_test, y_test, shape, batch_size=128
                                          save_best_only=True,
                                          mode='max')
                                          	
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            es = EarlyStopping(monitor='val_accuracy', min_delta=0.003, mode='min', verbose=1, patience=50)
             callbacks_list = [checkpoint, es]
 
             history = model_RNN.fit(x_train, y_train,
@@ -257,7 +258,7 @@ def Image_Classification(x_train, y_train, x_test, y_test, shape, batch_size=128
                                          save_best_only=True,
                                          mode='max')
                                          	
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            es = EarlyStopping(monitor='val_accuracy', min_delta=0.003, mode='min', verbose=1, patience=50)
             callbacks_list = [checkpoint, es]
 
             history = model_CNN.fit(x_train, y_train,
