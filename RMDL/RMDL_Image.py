@@ -148,7 +148,9 @@ def Image_Classification(x_train, y_train, x_test, y_test, shape, batch_size=128
                                          verbose=1,
                                          save_best_only=True,
                                          mode='max')
-            callbacks_list = [checkpoint]
+            	
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            callbacks_list = [checkpoint, es]
 
             history = model_DNN.fit(x_train, y_train,
                                     validation_data=(x_test, y_test),
@@ -201,7 +203,9 @@ def Image_Classification(x_train, y_train, x_test, y_test, shape, batch_size=128
                                          verbose=1,
                                          save_best_only=True,
                                          mode='max')
-            callbacks_list = [checkpoint]
+                                         	
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            callbacks_list = [checkpoint, es]
 
             history = model_RNN.fit(x_train, y_train,
                                     validation_data=(x_test, y_test),
@@ -252,7 +256,9 @@ def Image_Classification(x_train, y_train, x_test, y_test, shape, batch_size=128
                                          verbose=1, 
                                          save_best_only=True,
                                          mode='max')
-            callbacks_list = [checkpoint]
+                                         	
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            callbacks_list = [checkpoint, es]
 
             history = model_CNN.fit(x_train, y_train,
                                     validation_data=(x_test, y_test),

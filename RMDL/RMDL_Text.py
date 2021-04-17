@@ -23,6 +23,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_recall_fscore_support
 from keras.callbacks import ModelCheckpoint
+from keras.callbacks import EarlyStopping
 from RMDL import BuildModel as BuildModel
 from RMDL.Download import Download_Glove as GloVe
 from RMDL import text_feature_extraction as txt
@@ -195,7 +196,9 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                          verbose=1,
                                          save_best_only=True,
                                          mode='max')
-            callbacks_list = [checkpoint]
+            	
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            callbacks_list = [checkpoint, es]
 
             model_DNN, model_tmp = BuildModel.Build_Model_DNN_Text(x_train_tfidf.shape[1],
                                                                    number_of_classes,
@@ -268,7 +271,9 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                          verbose=1,
                                          save_best_only=True,
                                          mode='max')
-            callbacks_list = [checkpoint]
+            	
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            callbacks_list = [checkpoint, es]
 
             model_RNN, model_tmp = BuildModel.Build_Model_RNN_Text(word_index,
                                                                    embeddings_index,
@@ -346,7 +351,9 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
             filepath = "weights\weights_CNN_" + str(i) + ".hdf5"
             checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True,
                                          mode='max')
-            callbacks_list = [checkpoint]
+            	
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            callbacks_list = [checkpoint, es]
 
             model_history = model_CNN.fit(x_train_embedded, y_train,
                                           validation_data=(x_test_embedded, y_test),
